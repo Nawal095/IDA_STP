@@ -1,0 +1,74 @@
+IDA* working to solve Puzzle 48:
+################################
+Initial State:
+===============
+8 11 4 6 
+7 3 10 9 
+2 12 15 13 
+0 1 5 14 
+
+Core_5:	Starting iteration with bound 39; 0 expanded, 2 generated
+Core_5:	Starting iteration with bound 41; 322 expanded, 629 generated
+Core_5:	Starting iteration with bound 43; 3315 expanded, 6498 generated
+Core_5:	Starting iteration with bound 45; 29932 expanded, 59834 generated
+Core_5:	Starting iteration with bound 47; 233010 expanded, 469473 generated
+IDA*: 408.45s elapsed; 756808 expanded; 1528962 generated; solution length 49
+
+Goal State:
+===============
+0 1 2 3 
+4 5 6 7 
+8 9 10 11 
+12 13 14 15 
+
+
+Path: 
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1

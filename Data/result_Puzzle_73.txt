@@ -1,0 +1,75 @@
+IDA* working to solve Puzzle 73:
+################################
+Initial State:
+===============
+6 14 10 5 
+15 8 7 1 
+3 4 2 0 
+12 9 11 13 
+
+Core_0:	Starting iteration with bound 37; 0 expanded, 3 generated
+Core_0:	Starting iteration with bound 39; 16 expanded, 35 generated
+Core_0:	Starting iteration with bound 41; 283 expanded, 568 generated
+Core_0:	Starting iteration with bound 43; 3666 expanded, 7223 generated
+Core_0:	Starting iteration with bound 45; 42055 expanded, 83675 generated
+Core_0:	Starting iteration with bound 47; 393526 expanded, 788889 generated
+IDA*: 258.38s elapsed; 646521 expanded; 1293043 generated; solution length 49
+
+Goal State:
+===============
+0 1 2 3 
+4 5 6 7 
+8 9 10 11 
+12 13 14 15 
+
+
+Path: 
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1

@@ -75,58 +75,6 @@ int IDAstar::ManhattanDistance(
     }
 }
 
-int IDAstar::LinearConflicts(const std::array<int, 16>& tiles) const {
-    int conflicts = 0;
-
-    // Check row conflicts
-    for (int row = 0; row < 4; ++row) {
-        std::vector<std::pair<int, int>> row_tiles; // {current_col, goal_col}
-        for (int col = 0; col < 4; ++col) {
-            int idx = row * 4 + col;
-            int tile = tiles[idx];
-            if (tile == 0) continue;
-            const auto& [gr, gc] = Puzzle::goal_positions.at(tile);
-            if (gr == row) { // Tile belongs to this row in goal state
-                row_tiles.emplace_back(col, gc);
-            }
-        }
-        // Check all pairs in the row
-        for (size_t i = 0; i < row_tiles.size(); ++i) {
-            for (size_t j = i+1; j < row_tiles.size(); ++j) {
-                if ((row_tiles[i].second > row_tiles[j].second && row_tiles[i].first < row_tiles[j].first) ||
-                    (row_tiles[i].second < row_tiles[j].second && row_tiles[i].first > row_tiles[j].first)) {
-                    conflicts++;
-                }
-            }
-        }
-    }
-
-    // Check column conflicts
-    for (int col = 0; col < 4; ++col) {
-        std::vector<std::pair<int, int>> col_tiles; // {current_row, goal_row}
-        for (int row = 0; row < 4; ++row) {
-            int idx = row * 4 + col;
-            int tile = tiles[idx];
-            if (tile == 0) continue;
-            const auto& [gr, gc] = Puzzle::goal_positions.at(tile);
-            if (gc == col) { // Tile belongs to this column in goal state
-                col_tiles.emplace_back(row, gr);
-            }
-        }
-        // Check all pairs in the column
-        for (size_t i = 0; i < col_tiles.size(); ++i) {
-            for (size_t j = i+1; j < col_tiles.size(); ++j) {
-                if ((col_tiles[i].second > col_tiles[j].second && col_tiles[i].first < col_tiles[j].first) ||
-                    (col_tiles[i].second < col_tiles[j].second && col_tiles[i].first > col_tiles[j].first)) {
-                    conflicts++;
-                }
-            }
-        }
-    }
-
-    return conflicts * 2; // Each conflict adds 2 moves
-}
-
 int IDAstar::Search(
     Puzzle& puzzle, 
     int g, 

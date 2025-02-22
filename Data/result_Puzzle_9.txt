@@ -1,0 +1,73 @@
+IDA* working to solve Puzzle 9:
+################################
+Initial State:
+===============
+3 14 9 11 
+5 4 8 2 
+13 12 6 7 
+10 1 15 0 
+
+Core_2:	Starting iteration with bound 32; 1 expanded, 4 generated
+Core_2:	Starting iteration with bound 34; 26 expanded, 56 generated
+Core_2:	Starting iteration with bound 36; 290 expanded, 586 generated
+Core_2:	Starting iteration with bound 38; 2533 expanded, 5176 generated
+Core_2:	Starting iteration with bound 40; 18039 expanded, 36826 generated
+Core_2:	Starting iteration with bound 42; 113292 expanded, 231550 generated
+Core_2:	Starting iteration with bound 44; 656047 expanded, 1340852 generated
+IDA*: 2385.97s elapsed; 1598051 expanded; 3281430 generated; solution length 46
+
+Goal State:
+===============
+0 1 2 3 
+4 5 6 7 
+8 9 10 11 
+12 13 14 15 
+
+
+Path: 
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Down, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Left, Steps: 1
+Direction: Down, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+Direction: Right, Steps: 1
+Direction: Down, Steps: 1
+Direction: Left, Steps: 1
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1

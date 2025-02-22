@@ -19,21 +19,6 @@ void Puzzle::init_goal_positions() {
             goal_positions[tile] = {r, col};
         }
     }
-
-    // Optional: Print for verification
-    /*
-    std::cout << "Puzzle goal_positions:\n";
-    for (const auto& [tile, pos] : goal_positions) {
-        std::cout << "Tile " << tile << ": (" << pos.first << ", " << pos.second << ")\n";
-    }
-    std::cout << "Puzzle matrix m:\n";
-    for (int r = 0; r < n; ++r) {
-        for (int c = 0; c < n; ++c) {
-            std::cout << m[r][c] << " ";
-        }
-        std::cout << std::endl;
-    }
-    */
 }
 
 Puzzle::Puzzle(const std::array<int, 16>& initial, int var) : variant(var) {
@@ -49,27 +34,67 @@ Puzzle::Puzzle(const std::array<int, 16>& initial, int var) : variant(var) {
 }
 
 void Puzzle::ApplyAction(Action action) {
-    int new_row = blank_row;
-    int new_col = blank_col;
+    int original_blank_row = blank_row;
+    int original_blank_col = blank_col;
+
     switch (action.dir) {
-        case Left:  new_col -= action.steps; break;
-        case Right: new_col += action.steps; break;
-        case Up:    new_row -= action.steps; break;
-        case Down:  new_row += action.steps; break;
+        case Left: {
+            int target_col = blank_col - action.steps;
+            if (target_col < 0) {
+                cerr << "Invalid action!" << endl;
+                return;
+            }
+            // Shift tiles right and move blank left
+            for (int c = blank_col; c > target_col; --c) {
+                int current_idx = blank_row * 4 + c;
+                int left_idx = blank_row * 4 + (c - 1);
+                std::swap(tiles[current_idx], tiles[left_idx]);
+            }
+            blank_col = target_col;
+            break;
+        }
+        case Right: {
+            int target_col = blank_col + action.steps;
+            if (target_col >= 4) {
+                cerr << "Invalid action!" << endl;
+                return;
+            }
+            // Shift tiles left and move blank right
+            for (int c = blank_col; c < target_col; ++c) {
+                int current_idx = blank_row * 4 + c;
+                int right_idx = blank_row * 4 + (c + 1);
+                std::swap(tiles[current_idx], tiles[right_idx]);
+            }
+            blank_col = target_col;
+            break;
+        }
+        case Up: {
+            int target_row = blank_row - action.steps;
+            if (target_row < 0 || action.steps != 1) { // Only 1 step allowed
+                cerr << "Invalid action!" << endl;
+                return;
+            }
+            // Swap with tile above
+            int current_idx = blank_row * 4 + blank_col;
+            int up_idx = target_row * 4 + blank_col;
+            std::swap(tiles[current_idx], tiles[up_idx]);
+            blank_row = target_row;
+            break;
+        }
+        case Down: {
+            int target_row = blank_row + action.steps;
+            if (target_row >= 4 || action.steps != 1) { // Only 1 step allowed
+                cerr << "Invalid action!" << endl;
+                return;
+            }
+            // Swap with tile below
+            int current_idx = blank_row * 4 + blank_col;
+            int down_idx = target_row * 4 + blank_col;
+            std::swap(tiles[current_idx], tiles[down_idx]);
+            blank_row = target_row;
+            break;
+        }
     }
-    // Check boundaries
-    if (new_row < 0 || new_row >= 4 || new_col < 0 || new_col >= 4) {
-        cerr << "Invalid action!" << endl;
-        return;
-    }
-    // Move tiles
-    int blank_index = blank_row * 4 + blank_col;
-    int new_index = new_row * 4 + new_col;
-    tiles[blank_index] = tiles[new_index];
-    tiles[new_index] = 0;
-    // Update blank position
-    blank_row = new_row;
-    blank_col = new_col;
 }
 
 void Puzzle::UndoAction(Action action) {
@@ -143,6 +168,10 @@ void Puzzle::PrintState() const {
 
 std::array<int, 16> Puzzle::GetTiles() const {
     return tiles;
+}
+
+int Puzzle::GetVariant() const {
+    return variant;
 }
 
 std::pair<int, int> Puzzle::GetBlankPosition() const {
