@@ -27,7 +27,7 @@ This directory contains all input and output files for the 15-puzzle experiments
   Contains: `result_Puzzle_[1-100].txt`
 
 ### Pattern Databases
-- **Location**: `PDB/DB` directory  
+- **Location**: [`PDB/DB`](./PDB/DB) directory  
 - **Note**: PDBs are stored using Git LFS due to their large size
 
 ## File Formats
