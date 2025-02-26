@@ -177,17 +177,3 @@ make && ./process_korf100_parallel <pdb_args>
     ├── README.md
     └── UnitTest.cpp
 ```
-
-# 15-Puzzle Solver Framework
-
-A comprehensive toolkit for solving 15-puzzle problems using various algorithms and movement variants. Supports traditional IDA* and Pattern Database-enhanced search strategies.
-
-## Directory Structure Overview
-```text
-    ├── Data
-    ├── IDAStar_STP1
-    ├── IDAStar_STP2
-    ├── IDAstar_PDB
-    ├── PDB
-    └── Puzzle
-```
