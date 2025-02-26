@@ -45,6 +45,41 @@ This directory contains all input and output files for the 15-puzzle experiments
   - Nodes expanded
   - Solution length
 
+### Sample:
+
+```text
+IDA* working to solve Puzzle 1:
+################################
+Initial State:
+===============
+14 13 15 7 
+11 12 9 5 
+6 0 2 1 
+4 8 10 3 
+
+Core_0:	Starting iteration with bound 37; 8 expanded, 34 generated
+Core_0:	Starting iteration with bound 38; 56 expanded, 163 generated
+Core_0:	Starting iteration with bound 39; 1165 expanded, 3646 generated
+Core_0:	Starting iteration with bound 40; 22163 expanded, 71740 generated
+Core_0:	Starting iteration with bound 41; 222733 expanded, 729227 generated
+IDA*: 52.74s elapsed; 30286715 expanded; 105415302 generated; solution length 79
+
+Goal State:
+===============
+0 1 2 3 
+4 5 6 7 
+8 9 10 11 
+12 13 14 15 
+
+
+Path: 
+===============
+Direction: Left, Steps: 1
+Direction: Up, Steps: 1
+Direction: Up, Steps: 1
+...
+```
+
 ## Usage
 
 1. **Extract Output Files**:
