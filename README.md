@@ -1,50 +1,3 @@
-### Directory Structure
-
-```bash
-├── Data
-│   ├── IDA_PDB_STP1_output.zip
-│   ├── IDA_STP1_output.zip
-│   └── korf100.txt
-├── IDAStar_STP2
-│   ├── IDAstar.cpp
-│   ├── IDAstar.h
-│   ├── Makefile
-│   ├── Process_korf100_parallel.cpp
-│   └── process_korf100_parallel
-├── IDAstar_PDB
-│   ├── IDAstar.cpp
-│   ├── IDAstar.h
-│   ├── Makefile
-│   ├── Process_korf100_parallel.cpp
-│   └── process_korf100_parallel
-├── IDAstar_STP1
-│   ├── IDAstar.cpp
-│   ├── IDAstar.h
-│   ├── IDAstar_variant_one.o
-│   ├── Makefile
-│   ├── Makefile_test.original.txt
-│   ├── Process_korf100_parallel.cpp
-│   ├── Process_korf100_parallel.o
-│   ├── Puzzle.o
-│   └── process_korf100_parallel
-├── PDB
-│   ├── AbstractPuzzlePDB.cpp
-│   ├── AbstractPuzzlePDB.h
-│   ├── DB
-│   ├── GeneratePDB.cpp
-│   ├── GeneratePDB.h
-│   ├── Makefile
-│   ├── ParallelPDBGenerator.cpp
-│   └── Test
-│       ├── print_range.cpp
-│       └── test_ranking.cpp
-└── Puzzle
-    ├── Puzzle.cpp
-    ├── Puzzle.h
-    ├── README.md
-    └── UnitTest.cpp
-```
-
 # 15-Puzzle Solver Framework
 
 A comprehensive toolkit for solving 15-puzzle problems using various algorithms and movement variants. Supports traditional IDA* and Pattern Database-enhanced search strategies.
@@ -58,7 +11,6 @@ A comprehensive toolkit for solving 15-puzzle problems using various algorithms 
     ├── PDB
     └── Puzzle
 ```
-
 
 ## Project Description
 
@@ -179,3 +131,63 @@ make && ./process_korf100_parallel <pdb_args>
 ## License
 [MIT License](https://chat.deepseek.com/a/chat/s/LICENSE) - Free for academic and research use
 
+### Directory Structure
+
+```bash
+├── Data
+│   ├── IDA_PDB_STP1_output.zip
+│   ├── IDA_STP1_output.zip
+│   └── korf100.txt
+├── IDAStar_STP2
+│   ├── IDAstar.cpp
+│   ├── IDAstar.h
+│   ├── Makefile
+│   ├── Process_korf100_parallel.cpp
+│   └── process_korf100_parallel
+├── IDAstar_PDB
+│   ├── IDAstar.cpp
+│   ├── IDAstar.h
+│   ├── Makefile
+│   ├── Process_korf100_parallel.cpp
+│   └── process_korf100_parallel
+├── IDAstar_STP1
+│   ├── IDAstar.cpp
+│   ├── IDAstar.h
+│   ├── IDAstar_variant_one.o
+│   ├── Makefile
+│   ├── Makefile_test.original.txt
+│   ├── Process_korf100_parallel.cpp
+│   ├── Process_korf100_parallel.o
+│   ├── Puzzle.o
+│   └── process_korf100_parallel
+├── PDB
+│   ├── AbstractPuzzlePDB.cpp
+│   ├── AbstractPuzzlePDB.h
+│   ├── DB
+│   ├── GeneratePDB.cpp
+│   ├── GeneratePDB.h
+│   ├── Makefile
+│   ├── ParallelPDBGenerator.cpp
+│   └── Test
+│       ├── print_range.cpp
+│       └── test_ranking.cpp
+└── Puzzle
+    ├── Puzzle.cpp
+    ├── Puzzle.h
+    ├── README.md
+    └── UnitTest.cpp
+```
+
+# 15-Puzzle Solver Framework
+
+A comprehensive toolkit for solving 15-puzzle problems using various algorithms and movement variants. Supports traditional IDA* and Pattern Database-enhanced search strategies.
+
+## Directory Structure Overview
+```text
+    ├── Data
+    ├── IDAStar_STP1
+    ├── IDAStar_STP2
+    ├── IDAstar_PDB
+    ├── PDB
+    └── Puzzle
+```
