@@ -7,6 +7,8 @@
 #include <chrono>
 #include <unordered_set>
 #include <array>
+#include <string>
+#include <fstream>
 
 // Custom hash function for std::array<int, 16>
 size_t ArrayHash::operator()(const std::array<int, 16>& arr) const {
@@ -80,6 +82,22 @@ int IDAstar::HeuristicsCost(const std::array<int, 16>& tiles) const {
     return h1 + h2;
 }
 
+double IDAstar::GetActionCost(const Action& action, const Puzzle& puzzle) const {
+    if (puzzle.GetVariant() == 1) {
+        return 1.0; // Uniform cost for Variant 1
+    } else if (puzzle.GetVariant() == 2) {
+        if (action.steps == 1) {
+            return 1.0; // Cost 1 for single tile moves (all directions)
+        } else if (action.steps == 2 && (action.dir == Left || action.dir == Right)) {
+            return 1.0 / 2.0; // Cost 0.5 for 2-tile horizontal moves
+        } else if (action.steps == 3 && (action.dir == Left || action.dir == Right)) {
+            return 1.0 / 3.0; // Cost ~0.333 for 3-tile horizontal moves
+        }
+        return 1.0;
+    }
+    return 1.0;
+ }
+
 int IDAstar::Search(
     Puzzle& puzzle, 
     int g, 
@@ -119,12 +137,9 @@ int IDAstar::Search(
 
     std::vector<std::pair<Action, int>> action_heuristics;
 
-    // Precompute parent state info
-    // const auto parent_tiles = tiles;
-    // const auto [original_br, original_bc] = puzzle.GetBlankPosition();
-
     for (const auto& action : actions) {
         nodes_generated++;
+        // double action_cost = GetActionCost(action, puzzle); // Call GetActionCost with puzzle
         puzzle.ApplyAction(action);
         const auto new_tiles = puzzle.GetTiles();
 
@@ -135,18 +150,23 @@ int IDAstar::Search(
         }
 
         int new_h = HeuristicsCost(new_tiles);
-        new_h = (puzzle.GetVariant() == 1) ? new_h : (new_h / 6.0);
+        new_h = (puzzle.GetVariant() == 1) ? new_h : std::ceil(new_h / 6.0);
 
         puzzle.UndoAction(action);
         action_heuristics.emplace_back(action, new_h);
     }
 
-    // Sort actions by f = g+1 + h
-    std::sort(action_heuristics.begin(), action_heuristics.end(),
-              [g](const auto& a, const auto& b) { return (g + 1 + a.second) < (g + 1 + b.second); });
+    // Sort actions by f = g + action_cost + h
+    std::sort(action_heuristics.begin(), action_heuristics.end(), // Correct sort with action_cost
+                [g, this, &puzzle](const auto& a, const auto& b) { // Capture puzzle
+                    double cost_a = GetActionCost(a.first, puzzle); // Get action cost using puzzle
+                    double cost_b = GetActionCost(b.first, puzzle); // Get action cost using puzzle
+                    return (g + cost_a + a.second) < (g + cost_b + b.second);
+                });
 
     for (const auto& [action, h] : action_heuristics) {
-        int f = g + 1 + h;
+        double action_cost = GetActionCost(action, puzzle); // Get action cost here as well for f calculation
+        double f = g + 1 + h; // f calculation with action_cost
         if (f > bound){
             if (f < min_cost) min_cost = f;
             continue;
@@ -155,7 +175,7 @@ int IDAstar::Search(
         puzzle.ApplyAction(action);
         path.push_back(action);
 
-        int t = Search(puzzle, g + 1, bound, path, nodes_expanded, nodes_generated, visited_states);
+        double t = Search(puzzle, g + action_cost, bound, path, nodes_expanded, nodes_generated, visited_states); // Recursive call with action_cost
         nodes_expanded++;
 
         // Print progress
@@ -220,12 +240,20 @@ std::tuple<std::vector<Action>, int, double, long long, long long, Puzzle> IDAst
     PreComputeMultipliers();
 
     int bound = HeuristicsCost(puzzle.GetTiles());
-    bound = (puzzle.GetVariant() == 1) ? bound : (bound / 6.0);
+    bound = (puzzle.GetVariant() == 1) ? bound : std::ceil(bound / 6.0);
+
     std::vector<Action> path;
     long long nodes_expanded = 0;
     long long nodes_generated = 0;
 
+    int prev_bound;
+    long long prev_nodes_expanded, prev_nodes_generated;
+
     while (true) {
+        prev_bound = bound;
+        prev_nodes_expanded = nodes_expanded;
+        prev_nodes_generated = nodes_generated;
+
         std::unordered_set<std::array<int, 16>, ArrayHash> visited_states;
         int t = Search(puzzle, 0, bound, path, nodes_expanded, nodes_generated, visited_states);
         if (t == -1) {
@@ -234,8 +262,15 @@ std::tuple<std::vector<Action>, int, double, long long, long long, Puzzle> IDAst
             return {path, static_cast<int>(path.size()), elapsed.count(), nodes_expanded, nodes_generated, puzzle};
         }
         if (t == std::numeric_limits<int>::max()) break;
-        callback(core_num, bound, nodes_expanded, nodes_generated, outfile);
-        std::cout << "\nNew bound: " << t << std::endl;
+
+        if (prev_bound != t) {
+            // After Search completes for a bound, write to outfile using the captured bound value
+            std::string iteration_info_outfile = "Core_" + std::to_string(core_num) + ":\tIteration with bound " + std::to_string(prev_bound) +  // Use captured bound
+                                                "; " + std::to_string(prev_nodes_expanded) + " expanded, " + std::to_string(prev_nodes_generated) + " generated";
+            outfile << iteration_info_outfile << "\n";
+        }
+        callback(core_num, bound, nodes_expanded, nodes_generated, outfile); 
+        std::cout << "\nNew bound: " << static_cast<int>(t) << std::endl;
         bound = t;
     }
     return {{}, -1, 0.0, nodes_expanded, nodes_generated, puzzle};

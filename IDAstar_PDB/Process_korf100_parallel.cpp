@@ -50,7 +50,7 @@ void print_iteration_info(int core_num, int bound, long long expanded, long long
 
     std::cout << info;
 
-    outfile << info << "\n";
+    // outfile << info << "\n";
 }
 
 

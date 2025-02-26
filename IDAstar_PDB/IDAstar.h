@@ -30,6 +30,7 @@ private:
     std::vector<int> GetDual(const std::array<int, 16>&, const std::unordered_set<int>&) const;
     void PreComputeMultipliers(); 
     int HeuristicsCost(const std::array<int, 16>& tiles) const;
+    double GetActionCost(const Action& action, const Puzzle& puzzle) const;
 
 public:
     std::tuple<std::vector<Action>, int, double, long long, long long, Puzzle> Solve(   Puzzle&, 
