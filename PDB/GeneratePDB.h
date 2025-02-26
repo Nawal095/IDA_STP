@@ -69,6 +69,7 @@ namespace Test {
 
 class GeneratePDB {
     friend void Test::testRankingFunctions();
+
 private:
     std::unordered_set<int> pattern;
     std::vector<int> sorted_pattern;
@@ -86,13 +87,8 @@ private:
     std::vector<int> UnrankState(uint64_t, bool) const;
     std::array<int, 16> ReconstructState(const std::vector<int>&) const;
 
-    // std::unordered_map<std::vector<int>, int, SequenceHash> pdb; // Use SequenceHash for abstract states
-    // std::unordered_set<std::array<int, 16>, SequenceHash> closed_set; // Use SequenceHash for concrete states
-    // std::unordered_set<uint64_t, Uint64Hash> closed_set;
-
     std::vector<int> GetDual(const std::array<int, 16>&, int) const;  
     void PreComputeMultipliers(int);
-    // uint64_t PackState(const std::array<int, 16>&);
     
     // Helper function to release memory
     void ClearMemory();

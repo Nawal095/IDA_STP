@@ -33,6 +33,7 @@ public:
     std::vector<Action> GetPossibleActions() const;
     void PrintState() const;
     std::array<int, 16> GetTiles() const; // Getter for tiles
+    int GetVariant() const; // Getter for variant
     std::pair<int, int> GetBlankPosition() const; // Getter for blank position
 
 private:

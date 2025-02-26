@@ -14,13 +14,11 @@ void GenerateAndSavePDB(const std::unordered_set<int>& pattern, int variant, con
 int main() {
     // Define patterns and filepaths
     std::vector<std::tuple<std::unordered_set<int>, int, std::string>> tasks = {
-	// Test
-	// {{0,2,3,4,5},1,"DB/test_pdb_v1_0-25.bin"}
+	// Test	// {{0,2,3,4,5},1,"DB/test_pdb_v1_0-25.bin"}
 	{{0, 1, 2, 3, 4, 5, 6, 7}, 1, "DB/pdb_v1_0-7.vec.bin"},
     {{0, 8, 9, 10, 11, 12, 13, 14, 15}, 1, "DB/pdb_v1_0+8-15.vec.bin"},
-    // {{0, 1, 2, 3, 4, 5, 6, 7}, 2, "DB/pdb_v2_0-7.bin"},
-    // {{0, 8, 9, 10, 11, 12, 13, 14, 15}, 2, "DB/pdb_v2_0+8-15.bin"},
-    // Add more patterns and filepaths as needed
+    {{0, 1, 2, 3, 4, 5, 6, 7}, 2, "DB/pdb_v2_0-7.bin"},
+    {{0, 8, 9, 10, 11, 12, 13, 14, 15}, 2, "DB/pdb_v2_0+8-15.bin"},
     };
 
     /**
@@ -49,9 +47,9 @@ int main() {
 	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
 	double minutes = static_cast<double>(duration.count());
 
-        GenerateAndSavePDB(pattern, variant, filepath);
+    GenerateAndSavePDB(pattern, variant, filepath);
 
-        std::cout << "Saved to: " << filepath << "\n\n";
+    std::cout << "Saved to: " << filepath << "\n\n";
 
 	std::cout << "Time taken to generate the PDB: "
           << minutes << " microsecs" << std::endl;
@@ -60,3 +58,15 @@ int main() {
     std::cout << "All PDBs generated and saved successfully!\n";
     return 0;
 }
+
+// nohup ./ParallelPDBGenerator > /home/mohammad/logs/PDB_generation.log 2>&1 &
+
+// OUTPUT
+// =================================
+// [0-7]
+// Total Nodes expanded: 518918400
+// PDB built with 57657600 entries
+
+// [0,8-15]
+// Total Nodes expanded: 
+// PDB built with 518918400 entries

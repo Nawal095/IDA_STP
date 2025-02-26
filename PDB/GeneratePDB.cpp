@@ -5,25 +5,13 @@
 
 GeneratePDB::GeneratePDB(const std::unordered_set<int>& pattern, int variant, const std::string& filepath)
     : pattern(pattern), variant(variant), filepath(filepath) {
+        
     sorted_pattern.assign(pattern.begin(), pattern.end());
     std::sort(sorted_pattern.begin(), sorted_pattern.end());
 
     // For closed set: pattern + 0
     sorted_closed_pattern.assign(sorted_pattern.begin(), sorted_pattern.end());
-    // sorted_closed_pattern = sorted_pattern;
-    // sorted_closed_pattern.push_back(0);
-    // std::sort(sorted_closed_pattern.begin(), sorted_closed_pattern.end());
 }
-
-/**
-uint64_t GeneratePDB::PackState(const std::array<int, 16>& state) {
-    uint64_t packed = 0;
-    for (int i = 0; i < 16; ++i) {
-        packed |= static_cast<uint64_t>(state[i]) << (i * 4);
-    }
-    return packed;
-}  
-*/
 
 uint64_t GeneratePDB::compute_rank(const std::vector<int>& abstract_state, int extended = 0) {
     uint64_t rank = 0;
@@ -176,10 +164,8 @@ void GeneratePDB::BuildPDB() {
         auto current_concrete = ReconstructState(current_closet_abstract);
 
         auto current_pdb_abstract = GetDual(current_concrete, 0);
-        // auto current_closet_abstract = GetDual(current_concrete, 1);
 
         uint64_t current_pdb_rank = compute_rank(current_pdb_abstract, 0);
-        // uint64_t current_closet_rank = compute_rank(current_closet_abstract, 1);
 
         int current_cost = pdb_vector[current_pdb_rank];
 
@@ -199,11 +185,12 @@ void GeneratePDB::BuildPDB() {
             uint64_t new_closet_rank = compute_rank(new_closet_abstract, 1);
 
             if (!closed_set_bitvector[new_closet_rank]) {
-                if (!moved_tiles.empty()) {
+                size_t moved_tiles_size = moved_tiles.size();
+                if (moved_tiles_size != 0) {
                     uint64_t new_pdb_rank = compute_rank(new_pdb_abstract, 0);
-                    // std::cout << "New Rank: " << new_rank << ";\t";
-                    // std::cout << "Value: " << pdb_vector[new_rank] << std::endl;
-                    pdb_vector[new_pdb_rank] = current_cost + 1;
+                    int new_cost;
+                    new_cost = (variant == 1) ? 1 :  static_cast<int>( (1 / moved_tiles_size) * 6 );
+                    pdb_vector[new_pdb_rank] = current_cost + new_cost;
                 }
                 closed_set_bitvector[new_closet_rank] = true;
                 q.push(new_closet_rank);
@@ -233,20 +220,6 @@ void GeneratePDB::SaveToFile() const {
 }
 
 void GeneratePDB::ClearMemory() {
-    // Clear and release memory for closed_set
-    // closed_set.clear();
-    // closed_set = std::unordered_set<std::array<int, 16>, SequenceHash>();
-    // closed_set = std::unordered_set<uint64_t, Uint64Hash>();
-
-    
-    /**
-    // Clear and release memory for pdb
-    pdb.clear();
-    pdb = std::unordered_map<std::vector<int>, int, SequenceHash>();
-
-    std::cout << "Memory released for closed_set and pdb.\n";
-    */
-
     pdb_vector.clear();
     pdb_vector.shrink_to_fit();
     multipliers.clear();
